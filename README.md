@@ -21,25 +21,38 @@ Describe what the project does,
 
 ## Technologies
 
-* Python 3 - [Installation instructions](https://www.python.org/)
+* Python 3 - [Installation instructions](https://www.python.org/)  
 
-  ### ***Testing framework***
+  It's good practice to work on a virtual environment with it's own depencies and packages.  
+  1 - To create a virtual environment on your machine follow the commands below:  
 
-  **pytest**   
-  * Install pytest  
-  1 - Run the following command in your command line:  
+  ```
+  $ python3 -m venv env_name
+  ```  
+  2 - Activate the newly created environment:  
+
+  ```
+  $ source env_name/bin/activate
+  ```  
+
+  You should see the env_name now on your terminal like in the shown example
+
+  ```
+  (env_name) [computer:~/projects/pazul-game]$
+  ```
+
+    ### **Dependencies**
+    
+    * **pytest** 
+
+    To install all dependencies in your virtual environment run the command below:
+
     ```
-    pip install -U pytest
-    ```  
-    2 - Check that you installed the correct version:  
-    ```
-    $ pytest --version  
-
-    This is pytest version 5.x.y, imported from $PYTHON_PREFIX/lib/python3.8 site-packages/pytest/__init__.py
+    $ pip install -r requirements.txt
     ```
 
-  * Run pytest  
-  Run the following command in your command line:  
+    Run pytest  
+    Run the following command in your command line:  
     ```
     $ pytest
     ```
