@@ -1,5 +1,12 @@
-def func(x):
-  return x + 1
+import sys
+sys.path.append("src")
 
-def test_answer():
-  assert func(3) == 4
+from tile_collection import *
+
+def test_func():
+  result = TileCollection.func(3)
+  assert result == 4
+
+def test_add():
+  sum = TileCollection.add(3, 5)
+  assert sum == 8
