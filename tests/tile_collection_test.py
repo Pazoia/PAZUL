@@ -3,15 +3,43 @@ from src.tile_collection import TileCollection
 def test_add_one_blue_tile():
     tileCollection = TileCollection()
     tileCollection.add_tile("blue")
-    assert tileCollection.bag["blue"] == 1
+    assert tileCollection.tiles["blue"] == 1
 
-def test_add_many_tile():
+def test_add_many_tiles():
     tileCollection = TileCollection()
-    for i in range(20):
-        tileCollection.add_tile("blue")
-    assert tileCollection.bag["blue"] == 20
+    tileCollection.add_tiles("blue", 20)
+    assert tileCollection.tiles["blue"] == 20
 
 def test_add_one_red_tile():
     tileCollection = TileCollection()
     tileCollection.add_tile("red")
-    assert tileCollection.bag["red"] == 1
+    assert tileCollection.tiles["red"] == 1
+
+def test_take_all_of_return_all_red_tiles():
+    tileCollection = TileCollection()
+    tileCollection.add_tiles("red", 5)
+    assert tileCollection.take_all_of("red") == 5
+
+def test_take_all_of_removes_all_red_tiles():
+    tileCollection = TileCollection()
+    tileCollection.add_tiles("red", 5)
+    tileCollection.take_all_of("red")
+    assert tileCollection.tiles["red"] == 0
+
+def test_take_all_of_removes_non_existent_tiles():
+    tileCollection = TileCollection()
+    assert tileCollection.take_all_of("red") == 0
+
+def test_take_all_return_all_removed_tiles():
+    tileCollection = TileCollection()
+    tileCollection.add_tiles("red", 5)
+    tileCollection.add_tiles("blue", 5)
+    taken_tiles = tileCollection.take_all()
+    assert taken_tiles == {"red": 5, "blue": 5}
+
+def test_take_all_removes_all_tiles():
+    tileCollection = TileCollection()
+    tileCollection.add_tiles("red", 5)
+    tileCollection.add_tiles("blue", 5)
+    tileCollection.take_all()
+    assert tileCollection.tiles == {}
