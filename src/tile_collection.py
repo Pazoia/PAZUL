@@ -1,7 +1,6 @@
 class TileCollection:
+    def __init__(self):
+        self.bag = {}
 
-  def func(x):
-    return x + 1
-
-  def add(a, b):
-    return a + b
+    def add_tile(self, color):
+        self.bag[color] = self.bag.get(color, 0) + 1
