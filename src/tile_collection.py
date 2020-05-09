@@ -1,5 +1,5 @@
 import random
-from exceptions import EmptyTileCollectionError
+from src.exceptions import EmptyTileCollectionError
 
 class TileCollection:
     def __init__(self):
@@ -29,21 +29,9 @@ class TileCollection:
             for i in range(times_to_append):
                 all_tiles.append(color)
 
-        # if len(all_tiles) != 0:
-        chosen_color = random.choice(all_tiles)
+        if len(all_tiles) == 0:
+            raise EmptyTileCollectionError()
 
-        print(chosen_color)
+        chosen_color = random.choice(all_tiles)
         self.tiles[chosen_color] = self.tiles[chosen_color] - 1
         return chosen_color
-
-tileCollection = TileCollection()
-tileCollection.add_tiles("blue", 1)
-tileCollection.add_tiles("red", 1)
-tileCollection.take_random()
-print(tileCollection.tiles)
-tileCollection.take_random()
-print(tileCollection.tiles)
-tileCollection.take_random()
-print(tileCollection.tiles)
-tileCollection.take_random()
-print(tileCollection.tiles)

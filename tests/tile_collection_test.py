@@ -1,4 +1,6 @@
+import pytest
 from src.tile_collection import TileCollection
+from src.exceptions import EmptyTileCollectionError
 
 def test_add_one_blue_tile():
     tileCollection = TileCollection()
@@ -43,3 +45,7 @@ def test_take_all_removes_all_tiles():
     tileCollection.add_tiles("blue", 5)
     tileCollection.take_all()
     assert tileCollection.tiles == {}
+
+def test_take_random_fail_on_empty_collection():
+    with pytest.raises(EmptyTileCollectionError):
+        TileCollection().take_random()
