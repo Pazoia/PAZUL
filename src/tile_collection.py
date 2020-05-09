@@ -1,4 +1,5 @@
 import random
+from exceptions import EmptyTileCollectionError
 
 class TileCollection:
     def __init__(self):
