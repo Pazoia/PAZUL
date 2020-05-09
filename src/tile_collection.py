@@ -1,3 +1,5 @@
+import random
+
 class TileCollection:
     def __init__(self):
         self.tiles = {}
@@ -17,3 +19,30 @@ class TileCollection:
         tiles_to_take = self.tiles
         self.tiles = {}
         return tiles_to_take
+
+    def take_random(self):
+        all_tiles = []
+
+        for color in self.tiles:
+            times_to_append = self.tiles[color]
+            for i in range(times_to_append):
+                all_tiles.append(color)
+
+        # if len(all_tiles) != 0:
+        chosen_color = random.choice(all_tiles)
+
+        print(chosen_color)
+        self.tiles[chosen_color] = self.tiles[chosen_color] - 1
+        return chosen_color
+
+tileCollection = TileCollection()
+tileCollection.add_tiles("blue", 1)
+tileCollection.add_tiles("red", 1)
+tileCollection.take_random()
+print(tileCollection.tiles)
+tileCollection.take_random()
+print(tileCollection.tiles)
+tileCollection.take_random()
+print(tileCollection.tiles)
+tileCollection.take_random()
+print(tileCollection.tiles)
