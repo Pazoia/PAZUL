@@ -59,5 +59,5 @@ def test_take_random_returns_random_tile():
     tileCollection.add_tiles("red", 1000)
     tileCollection.add_tiles("blue", 5)
 
-    with mock.patch('random.choice', choose_blue):
+    with mock.patch('random.randint', choose_blue):
         assert tileCollection.take_random() == "blue"
