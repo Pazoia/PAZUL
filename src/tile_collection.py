@@ -25,6 +25,7 @@ class TileCollection:
         return tiles_to_take
 
     def take_random(self):
+        # number = self.number_of_tiles
         chosen_number = random.randint(1, self.number_of_tiles)
         return chosen_number
     
@@ -63,5 +64,5 @@ print(f"tiles: {tileCollection.tiles}")
 print(tileCollection.number_of_tiles)
 
 # Taking random tiles
-tileCollection = TileCollection()
-print(f"chosen number: {tileCollection.take_random()}")
+chosen_num = tileCollection.take_random()
+print(chosen_num)
