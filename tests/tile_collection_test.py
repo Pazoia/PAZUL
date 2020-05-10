@@ -61,4 +61,3 @@ def test_take_random_returns_random_tile():
 
     with mock.patch('random.choice', choose_blue):
         assert tileCollection.take_random() == "blue"
-    
