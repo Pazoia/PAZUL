@@ -1,9 +1,10 @@
 import random
+from collections import OrderedDict
 from exceptions import EmptyTileCollectionError
 
 class TileCollection:
     def __init__(self):
-        self.tiles = {}
+        self.tiles = OrderedDict()
         self.number_of_tiles = 0
 
     def add_tile(self, color):
@@ -17,52 +18,20 @@ class TileCollection:
     def take_all_of(self, color):
         tiles_to_take = self.tiles.get(color, 0)
         self.tiles[color] = 0
+        self.number_of_tiles -= tiles_to_take
         return tiles_to_take
 
     def take_all(self):
         tiles_to_take = self.tiles
-        self.tiles = {}
+        self.tiles = OrderedDict()
+        self.number_of_tiles = 0
         return tiles_to_take
 
     def take_random(self):
-        # number = self.number_of_tiles
         chosen_number = random.randint(1, self.number_of_tiles)
-        return chosen_number
-    
-    def take_random_2(self):
-        all_tiles = []
-
         for color in self.tiles:
-            times_to_append = self.tiles[color]
-            for i in range(times_to_append):
-                all_tiles.append(color)
-
-        if len(all_tiles) == 0:
-            raise EmptyTileCollectionError()
-
-        chosen_color = random.choice(all_tiles)
-        self.tiles[chosen_color] = self.tiles[chosen_color] - 1
-        return chosen_color
-
-
-tileCollection = TileCollection()
-# Adding tiles
-tileCollection.add_tiles("blue", 20)
-print(f"tiles: {tileCollection.tiles}")
-print(tileCollection.number_of_tiles)
-tileCollection.add_tiles("red", 20)
-print(f"tiles: {tileCollection.tiles}")
-print(tileCollection.number_of_tiles)
-tileCollection.add_tiles("orange", 20)
-print(f"tiles: {tileCollection.tiles}")
-print(tileCollection.number_of_tiles)
-tileCollection.add_tiles("green", 20)
-print(f"tiles: {tileCollection.tiles}")
-print(tileCollection.number_of_tiles)
-tileCollection.add_tiles("purple", 20)
-print(f"tiles: {tileCollection.tiles}")
-print(tileCollection.number_of_tiles)
-
-# Taking random tiles
-chosen_num = tileCollection.take_random()
-print(chosen_num)
+            chosen_number -= self.tiles[color]
+            if (chosen_number <= 0):
+                self.tiles[color] -= 1
+                self.number_of_tiles -= 1
+                return color
