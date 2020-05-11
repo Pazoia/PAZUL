@@ -1,4 +1,4 @@
-![](https://github.com/pazoia/pazul/workflows/Pazul%20application/badge.svg)
+![](https://github.com/pazoia/pazul/workflows/Pazul/badge.svg)
 
 # Pazul Game
 
