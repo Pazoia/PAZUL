@@ -1,9 +1,10 @@
 import random
+from collections import OrderedDict
 from pazul.exceptions import EmptyTileCollectionError
 
 class TileCollection:
     def __init__(self):
-        self.tiles = {}
+        self.tiles = OrderedDict()
         self.size = 0
 
     def add_tile(self, color):
@@ -22,7 +23,7 @@ class TileCollection:
 
     def take_all(self):
         tiles_to_take = self.tiles
-        self.tiles = {}
+        self.tiles = OrderedDict()
         self.size = 0
         return tiles_to_take
 
@@ -34,9 +35,8 @@ class TileCollection:
 
         counter = 0
         for color in self.tiles:
-            if self.tiles[color] != 0:
-                counter = counter + self.tiles[color]
-                if chosen_number <= counter:
-                    self.tiles[color] = self.tiles[color] - 1
-                    self.size -= 1
-                    return color
+            counter = counter + self.tiles[color]
+            if chosen_number <= counter:
+                self.tiles[color] = self.tiles[color] - 1
+                self.size -= 1
+                return color
