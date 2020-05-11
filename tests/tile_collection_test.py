@@ -1,7 +1,7 @@
 import pytest
 import unittest.mock as mock
-from src.tile_collection import TileCollection
-from src.exceptions import EmptyTileCollectionError
+from pazul.tile_collection import TileCollection
+from pazul.exceptions import EmptyTileCollectionError
 
 def test_add_one_blue_tile():
     tileCollection = TileCollection()

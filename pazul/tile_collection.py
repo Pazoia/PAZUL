@@ -1,6 +1,6 @@
 import random
 from collections import OrderedDict
-from exceptions import EmptyTileCollectionError
+from pazul.exceptions import EmptyTileCollectionError
 
 class TileCollection:
     def __init__(self):
@@ -28,6 +28,8 @@ class TileCollection:
         return tiles_to_take
 
     def take_random(self):
+        if (self.number_of_tiles < 1):
+            raise EmptyTileCollectionError()
         chosen_number = random.randint(1, self.number_of_tiles)
         for color in self.tiles:
             chosen_number -= self.tiles[color]
