@@ -1,5 +1,5 @@
 import random
-from src.exceptions import EmptyTileCollectionError
+from pazul.exceptions import EmptyTileCollectionError
 
 class TileCollection:
     def __init__(self):
