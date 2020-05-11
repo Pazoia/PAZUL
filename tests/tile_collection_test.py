@@ -51,8 +51,8 @@ def test_take_random_fail_on_empty_collection():
     with pytest.raises(EmptyTileCollectionError):
         TileCollection().take_random()
 
-def choose_blue(values):
-    return "blue"
+def choose_blue(a, b):
+    return 1001
 
 def test_take_random_returns_random_tile():
     tileCollection = TileCollection()
