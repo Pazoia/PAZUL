@@ -24,4 +24,3 @@ class Game():
 
 game = Game()
 game.new_game()
-
