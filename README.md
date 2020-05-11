@@ -27,18 +27,18 @@ Describe what the project does,
   1 - To create a virtual environment on your machine follow the commands below:  
 
   ```
-  $ python3 -m venv env_name
+  $ python3 -m venv venv
   ```  
   2 - Activate the newly created environment:  
 
   ```
-  $ source env_name/bin/activate
+  $ source venv/bin/activate
   ```  
 
   You should see the env_name now on your terminal like in the shown example
 
   ```
-  (env_name) [computer:~/projects/pazul-game]$
+  (venv) [computer:~/projects/pazul-game]$
   ```
 
     ### **Dependencies**
