@@ -1,4 +1,4 @@
-from src.tile_collection import TileCollection
+from pazul.tile_collection import TileCollection
 
 class Game():
     def __init__(self):
