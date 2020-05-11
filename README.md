@@ -1,3 +1,5 @@
+![](https://github.com/pazoia/pazul/workflows/Pazul%20application/badge.svg)
+
 # Pazul Game
 
 Clone of Azul game, with cat tiles...   
