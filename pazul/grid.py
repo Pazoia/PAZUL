@@ -1,20 +1,18 @@
 class Grid():
     def __init__(self):
-        self.colors = {
-            "blue": 1,
-            "yellow": 1,
-            "red": 1,
-            "black": 1,
-            "teal": 1
-        }
-        self.grid = []
+        colors = ["blue", "yellow", "red", "black", "teal"]
 
-        for column in range(5):
-            self.grid.append(list(self.colors.keys()))
+        self.grid = [
+            [colors[0], colors[1], colors[2], colors[3], colors[4]],
+            [colors[4], colors[0], colors[1], colors[2], colors[3]],
+            [colors[3], colors[4], colors[0], colors[1], colors[2]],
+            [colors[2], colors[3], colors[4], colors[0], colors[1]],
+            [colors[1], colors[2], colors[3], colors[4], colors[0]]
+        ]
+
+    def printing_grid(self):
         for row in self.grid:
-            print(f"row = {row}")
-            for i in row:
-                print(f"i = {i}")
+            print(row)
 
 grid = Grid()
-print(grid.grid)
+grid.printing_grid()
