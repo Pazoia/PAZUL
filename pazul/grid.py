@@ -23,10 +23,13 @@ class Grid():
             if row[i] == color:
                 row[i] = "filled"
                 self.score += 1
-                if row_index == -1:
-                    pass
-                if self.grid[row_index - 1][i] == "filled":
-                    self.score += 1
+
+                while row_index - 1 != -1:
+                    row_index -= 1
+                    if self.grid[row_index][i] == "filled":
+                        self.score += 1
+                else:
+                    break
 
         print(f"score = {self.score}")
 
@@ -34,9 +37,11 @@ class Grid():
         # returns points scored by tile
 
 grid = Grid()
-grid.add_tile(3, "blue")
+grid.add_tile(1, "blue")
 grid.printing_grid()
-grid.add_tile(4, "teal")
+grid.add_tile(2, "teal")
 grid.printing_grid()
-grid.add_tile(5, "black")
+grid.add_tile(3, "black")
+grid.printing_grid()
+grid.add_tile(4, "red")
 grid.printing_grid()
