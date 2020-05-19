@@ -37,3 +37,5 @@ def test_resolving_score_place_tile_below_multiple_tiles():
     grid.add_tile(2, "blue")
     grid.add_tile(5, "red")
     assert grid.score == 10
+
+# write tests for horizontal scorings
