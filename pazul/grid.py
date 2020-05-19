@@ -24,79 +24,109 @@ class Grid():
                 row[i] = "filled"
                 self.score += 1
                 element_index = i
+                counter = 0
 
                 # add extra point if tile to the right and below top corner
                 if element_index == 0 and self.grid.index(row) == 0:
                     if self.grid[row_index][i + 1] == "filled" and self.grid[row_index + 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the right and below top corner")
 
                 # add extra point if tile to the right and above below corner
                 if element_index == 0 and self.grid.index(row) == 4:
                     if self.grid[row_index][i + 1] == "filled" and self.grid[row_index - 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the right and above below corner")
 
                 # add extra point if tile to the right and tile below in range of column
                 if element_index == 0 and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i + 1] == "filled" and self.grid[row_index + 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the right and tile below in range of column")
 
                 # add extra point if tile to the right and tile above in range of column
                 if element_index == 0 and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i + 1] == "filled" and self.grid[row_index - 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the right and tile above in range of column")
+
+                # add extra point if tile to the right in range of column
+                if element_index == 0 and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
+                    if self.grid[row_index][i + 1] == "filled":
+                        self.score += 1
+                        counter += 1
+                        print("add extra point if tile to the right in range of column")
 
                 # add extra point if tile to the right and tile below in range of row and range of column
                 if (element_index > 0 and element_index < 4) and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i + 1] == "filled" and self.grid[row_index + 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the right and tile below in range of row and range of column")
 
                 # add extra point if tile to the right and tile above in range of row and range of column
                 if (element_index > 0 and element_index < 4) and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i + 1] == "filled" and self.grid[row_index - 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the right and tile above in range of row and range of column")
 
                 # add extra point if tile to the left and below top corner
                 if element_index == 4 and self.grid.index(row) == 0:
                     if self.grid[row_index][i - 1] == "filled" and self.grid[row_index + 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the left and below top corner")
 
                 # add extra point if tile to the left and above bottom corner
                 if element_index == 4 and self.grid.index(row) == 4:
                     if self.grid[row_index][i - 1] == "filled" and self.grid[row_index - 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the left and above bottom corner")
                 
                 # add extra point if tile to the left and tile below in range of column
                 if element_index == 4 and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i - 1] == "filled" and self.grid[row_index + 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the left and tile below in range of column")
 
                 # add extra point if tile to the left and tile above in range of column
                 if element_index == 4 and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i - 1] == "filled" and self.grid[row_index - 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the left and tile above in range of column")
+
+                # add extra point if tile to the left in range of column
+                if element_index == 4 and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
+                    if self.grid[row_index][i - 1] == "filled":
+                        self.score += 1
+                        counter += 1
+                        print("add extra point if tile to the left in range of column")
 
                 # add extra point if tile to the left and tile below in range of row and range of column
                 if (element_index > 0 and element_index < 4) and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i - 1] == "filled" and self.grid[row_index + 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the left and tile below in range of row and range of column")
 
                 # add extra point if tile to the left and tile above in range of row and range of column
                 if (element_index > 0 and element_index < 4) and (self.grid.index(row) > 0 and self.grid.index(row) < 4):
                     if self.grid[row_index][i - 1] == "filled" and self.grid[row_index - 1][i] == "filled":
                         self.score += 1
+                        counter += 1
                         print("add extra point if tile to the left and tile above in range of row and range of column")
-    
+                
+                if counter != 0:
+                    self.score -= 1
+
                 while row_index - 1 != -1:
                     row_index -= 1
                     if self.grid[row_index][i] == "filled":
@@ -131,21 +161,21 @@ class Grid():
         print(f"score = {self.score}")
 
 grid = Grid()
-grid.add_tile(2, "yellow")
+grid.add_tile(2, "teal")
 grid.printing_grid()
 print("- - - - - - - - -")
-grid.add_tile(4, "teal")
+grid.add_tile(4, "red")
 grid.printing_grid()
 print("- - - - - - - - -")
 grid.add_tile(3, "teal")
 grid.printing_grid()
 print("- - - - - - - - -")
-grid.add_tile(3, "yellow")
+grid.add_tile(3, "black")
 grid.printing_grid()
 print("- - - - - - - - -")
-grid.add_tile(3, "blue")
-grid.printing_grid()
-print("- - - - - - - - -")
+# grid.add_tile(3, "blue")
+# grid.printing_grid()
+# print("- - - - - - - - -")
 # grid.add_tile(5, "yellow")
 # grid.printing_grid()
 # print("- - - - - - - - -")
