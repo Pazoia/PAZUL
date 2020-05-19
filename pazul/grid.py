@@ -48,10 +48,6 @@ class Grid():
                         break
                 
                 row_index = self.grid.index(row)
-                # if self.grid[row_index][i - 1] == "filled" or self.grid[row_index][i + 1] == "filled":
-                #     self.score += 1
-                #     print("adding horizontal tile placement point")
-
                 while i - 1 != -1:
                     i -= 1
                     if self.grid[row_index][i] == "filled":
@@ -70,9 +66,6 @@ class Grid():
                         break
 
         print(f"score = {self.score}")
-
-        # resolve the scores, check filled spaces near tile
-        # returns points scored by tile
 
 grid = Grid()
 grid.add_tile(4, "teal")
