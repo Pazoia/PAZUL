@@ -1,99 +1,101 @@
+from collections import deque
+
+
+class WallSlot():
+    def __init__(self, color, index):
+        self.color = color
+        self.filled = False
+        self.index = index
+
+
+class WallRow():
+    def __init__(self, colors):
+        self.row = []
+        for i in range(len(colors)):
+            self.row.append(WallSlot(colors[i], i))
+
+    def __str__(self):
+        out = ""
+        for slot in self.row:
+            out += f"[{slot.color}]"
+        return out
+
+    def get_slot_by_color(self, color):
+        for slot in self.row:
+            if (slot.color == color):
+                return slot
+        # Could throw here, if asked for a colour that doesn't exist?
+
+    def get_slot_by_index(self, index):
+        # Could check not asking for index out of bounds?
+        return self.row[index]
+
+
 class TileWall():
     def __init__(self):
-        colors = ["blue", "yellow", "red", "black", "teal"]
-        self.tile_wall = [
-            [colors[0], colors[1], colors[2], colors[3], colors[4]],
-            [colors[4], colors[0], colors[1], colors[2], colors[3]],
-            [colors[3], colors[4], colors[0], colors[1], colors[2]],
-            [colors[2], colors[3], colors[4], colors[0], colors[1]],
-            [colors[1], colors[2], colors[3], colors[4], colors[0]]
-        ]
+        colors = deque(["blue", "yellow", "red", "black", "teal"])
+        self.tile_wall = []
         self.score = 0
+        for _ in range(5):
+            # Add a row
+            self.tile_wall.append(WallRow(colors))
+            # Rotate the colors
+            colors.rotate(1)
+
+    def __str__(self):
+        out = ""
+        for row in self.tile_wall:
+            out += str(row) + "\n"
+        return out
 
     def add_tile(self, row, color):
-        row = self.tile_wall[row - 1]
-        row_index = self.tile_wall.index(row)
+        row_index = row - 1
+        row = self.tile_wall[row_index]
+        slot = row.get_slot_by_color(color)
+        slot.filled = True
+        score = 1
 
-        for i in range(len(row)):
-            if row[i] == color:
-                row[i] = "filled"
-                self.score += 1
-                element_index = i
+        # check before the slot and add points. Break if we find an epty slot.
+        for i in range(slot.index - 1, -1, -1):
+            if (i < 0):
+                break
+            slot_to_check = row.get_slot_by_index(i)
+            if (slot_to_check.filled):
+                score += 1
+            else:
+                break
 
-                # add extra point if tile to the right and below, top corner
-                if element_index == 0 and self.tile_wall.index(row) == 0:
-                    if self.tile_wall[row_index][i + 1] == "filled" and self.tile_wall[row_index + 1][i] == "filled":
-                        self.score += 1
+        # check after the slot...
+        for i in range(slot.index + 1, 5):
+            if (i > 4):
+                break
+            slot_to_check = row.get_slot_by_index(i)
+            if (slot_to_check.filled):
+                score += 1
+            else:
+                break
 
-                # add extra point if tile to the right and above, below corner
-                if element_index == 0 and self.tile_wall.index(row) == 4:
-                    if self.tile_wall[row_index][i + 1] == "filled" and self.tile_wall[row_index - 1][i] == "filled":
-                        self.score += 1
+        # check above the slot...
+        for i in range(row_index - 1, -1, -1):
+            if (i < 0):
+                break
+            row_to_check = self.tile_wall[i]
+            slot_to_check = row_to_check.get_slot_by_index(slot.index)
+            if (slot_to_check.filled):
+                score += 1
+            else:
+                break
 
-                # add extra point if tile to the left and below, top corner
-                if element_index == 4 and self.tile_wall.index(row) == 0:
-                    if self.tile_wall[row_index][i - 1] == "filled" and self.tile_wall[row_index + 1][i] == "filled":
-                        self.score += 1
+        # check below the slot...
+        for i in range(row_index + 1, 5):
+            if (i > 4):
+                break
+            row_to_check = self.tile_wall[i]
+            slot_to_check = row_to_check.get_slot_by_index(slot.index)
+            if (slot_to_check.filled):
+                score += 1
+            else:
+                break
 
-                # add extra point if tile to the left and above, bottom corner
-                if element_index == 4 and self.tile_wall.index(row) == 4:
-                    if self.tile_wall[row_index][i - 1] == "filled" and self.tile_wall[row_index - 1][i] == "filled":
-                        self.score += 1
-
-                # add extra point if tile to the right and tile below or above in range of column, left column
-                if element_index == 0 and (self.tile_wall.index(row) > 0 and self.tile_wall.index(row) < 4):
-                    if self.tile_wall[row_index][i + 1] == "filled" and (self.tile_wall[row_index - 1][i] == "filled" or self.tile_wall[row_index + 1][i] == "filled"):
-                        self.score += 1
-
-                # add extra point if tile to the left and tile below or above in range of column, right coloumn
-                if element_index == 4 and (self.tile_wall.index(row) > 0 and self.tile_wall.index(row) < 4):
-                    if self.tile_wall[row_index][i - 1] == "filled" and (self.tile_wall[row_index - 1][i] == "filled" or self.tile_wall[row_index + 1][i] == "filled"):
-                        self.score += 1
-
-                # add extra point if tile below and tile to the left or right in range of row, top row
-                if (element_index > 0 and element_index < 4) and self.tile_wall.index(row) == 0:
-                    if self.tile_wall[row_index + 1 ][i] == "filled" and (self.tile_wall[row_index][i + 1] == "filled" or self.tile_wall[row_index - 1][i] == "filled"):
-                        self.score += 1
-
-                # add extra point if tile above and tile to the left or right in range of row, bottom row
-                if (element_index > 0 and element_index < 4) and self.tile_wall.index(row) == 4:
-                    if self.tile_wall[row_index - 1 ][i] == "filled" and (self.tile_wall[row_index][i + 1] == "filled" or self.tile_wall[row_index - 1][i] == "filled"):
-                        self.score += 1
-
-                # add extra point if tile to the right or left and tile below or above in range of row and range of column, inner spaces in tile_wall
-                if (element_index > 0 and element_index < 4) and (self.tile_wall.index(row) > 0 and self.tile_wall.index(row) < 4):
-                    if (self.tile_wall[row_index][i + 1] == "filled" or self.tile_wall[row_index][i - 1] == "filled") and (self.tile_wall[row_index + 1][i] == "filled" or self.tile_wall[row_index - 1][i] == "filled"):
-                        self.score += 1
-                                
-                while row_index != 0:
-                    row_index -= 1
-                    if self.tile_wall[row_index][i] == "filled":
-                        self.score += 1
-                    else:
-                        break
-                
-                row_index = self.tile_wall.index(row)
-                while row_index != 4:
-                    row_index += 1
-                    if self.tile_wall[row_index][i] == "filled":
-                        self.score += 1
-                    else:
-                        break
-                
-                row_index = self.tile_wall.index(row)
-                while i != 0:
-                    i -= 1
-                    if self.tile_wall[row_index][i] == "filled":
-                        self.score += 1
-                    else:
-                        break
-
-                i = element_index
-                while i != 4:
-                    i += 1
-                    if self.tile_wall[row_index][i] == "filled":
-                        self.score += 1
-                    else:
-                        break
-
-        return self.score
+        self.score += score
+        return score
