@@ -1,6 +1,5 @@
 from collections import deque
 
-
 class WallSlot():
     def __init__(self, color, index):
         self.color = color
@@ -48,54 +47,55 @@ class TileWall():
             out += str(row) + "\n"
         return out
 
-    def add_tile(self, row, color):
+    def add_tile_to_tile_wall(self, row, color):
         row_index = row - 1
         row = self.tile_wall[row_index]
         slot = row.get_slot_by_color(color)
         slot.filled = True
         score = 1
+        tile_in_row = False
+        tile_in_column = False
 
         # check before the slot and add points. Break if we find an epty slot.
         for i in range(slot.index - 1, -1, -1):
-            if (i < 0):
-                break
             slot_to_check = row.get_slot_by_index(i)
             if (slot_to_check.filled):
+                tile_in_row = True
                 score += 1
             else:
                 break
 
         # check after the slot...
         for i in range(slot.index + 1, 5):
-            if (i > 4):
-                break
             slot_to_check = row.get_slot_by_index(i)
             if (slot_to_check.filled):
+                tile_in_row = True
                 score += 1
             else:
                 break
 
         # check above the slot...
         for i in range(row_index - 1, -1, -1):
-            if (i < 0):
-                break
             row_to_check = self.tile_wall[i]
             slot_to_check = row_to_check.get_slot_by_index(slot.index)
             if (slot_to_check.filled):
+                tile_in_column = True
                 score += 1
             else:
                 break
 
         # check below the slot...
         for i in range(row_index + 1, 5):
-            if (i > 4):
-                break
             row_to_check = self.tile_wall[i]
             slot_to_check = row_to_check.get_slot_by_index(slot.index)
             if (slot_to_check.filled):
+                tile_in_column = True
                 score += 1
             else:
                 break
+        
+        if tile_in_row and tile_in_column:
+            score += 1
 
         self.score += score
         return score
