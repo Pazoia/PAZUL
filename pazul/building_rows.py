@@ -14,18 +14,20 @@ class BuildingRows:
         row_length = len(row)
         slots_to_be_filled = quantity
 
-        
-        for i in range(row[len(row)-1], -1, -1):            
-            if row[len(row)-1] == None:
-                row[len(row)-1] = color
-                slots_to_be_filled -= 1
-            if row[len(row)-1] == color:
-                pass
+        if row[len(row)-1] == None:
+            row[len(row)-1] = color
+            slots_to_be_filled -= 1
+        elif row[len(row)-1] == color:
+            for i in range(len(row)-1, quantity, -1):
+                if row[i] == None:
+                    row[i] = color
+                    slots_to_be_filled -= 1
 
-            
 build_row = BuildingRows()
 print(build_row.building_rows)
 build_row.add_tiles_to_building_row(5, "blue", 1)
 print(build_row.building_rows)
-build_row.add_tiles_to_building_row(5, "blue", 7)
+build_row.add_tiles_to_building_row(5, "blue", 2)
+print(build_row.building_rows)
+build_row.add_tiles_to_building_row(5, "blue", 3)
 print(build_row.building_rows)
