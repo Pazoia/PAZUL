@@ -10,7 +10,7 @@ class BuildingRows:
         tiles_not_used = quantity
 
         for _ in range(quantity):
-            if len(row) == row_index + 1:
+            if len(row) == row_index + 1 and row.count(color) == len(row):
                 return tiles_not_used
 
             if len(row) == 0:
