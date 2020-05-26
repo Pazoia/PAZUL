@@ -1,33 +1,27 @@
+import numpy
+from pazul.exceptions import InvalidColor
+
 class BuildingRows:
     def __init__(self):
-        self.building_rows = []
-        slots = 1
-        
-        for _ in range(5):
-            row = [None] * slots
-            self.building_rows.append(row)
-            slots = slots + 1
+        # self.building_rows = numpy.empty(shape=(5, 1),dtype='object')
+        self.building_rows = [[],[],[],[],[]]
 
     def add_tiles_to_building_row(self, row, color, quantity):
         row_index = row - 1
         row = self.building_rows[row_index]
-        row_length = len(row)
-        slots_to_be_filled = quantity
+        tiles_placed = 0
 
-        if row[len(row)-1] == None:
-            row[len(row)-1] = color
-            slots_to_be_filled -= 1
-        elif row[len(row)-1] == color:
-            for i in range(len(row)-1, quantity, -1):
-                if row[i] == None:
-                    row[i] = color
-                    slots_to_be_filled -= 1
+        for _ in range(quantity):
+            if len(row) == row_index + 1:
+                tiles_not_used = quantity - tiles_placed
+                print(f"tiles not used: {tiles_not_used}")
+                return tiles_not_used
 
-build_row = BuildingRows()
-print(build_row.building_rows)
-build_row.add_tiles_to_building_row(5, "blue", 1)
-print(build_row.building_rows)
-build_row.add_tiles_to_building_row(5, "blue", 2)
-print(build_row.building_rows)
-build_row.add_tiles_to_building_row(5, "blue", 3)
-print(build_row.building_rows)
+            if len(row) == 0:
+                row.append(color)
+                tiles_placed += 1
+            elif len(row) != 0 and row.count(color) == len(row):
+                row.append(color)
+                tiles_placed += 1
+            else:
+                raise InvalidColor("Chosen color not matching existing color")
