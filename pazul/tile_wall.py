@@ -21,7 +21,7 @@ class WallRow():
 
     def get_slot_by_color(self, color):
         for slot in self.row:
-            if (slot.color == color):
+            if slot.color == color:
                 return slot
         # Could throw here, if asked for a colour that doesn't exist?
 
@@ -59,7 +59,7 @@ class TileWall():
         # check before the slot and add points. Break if we find an epty slot.
         for i in range(slot.index - 1, -1, -1):
             slot_to_check = row.get_slot_by_index(i)
-            if (slot_to_check.filled):
+            if slot_to_check.filled:
                 slot_right_or_slot_left_filled = True
                 score += 1
             else:
@@ -68,7 +68,7 @@ class TileWall():
         # check after the slot...
         for i in range(slot.index + 1, 5):
             slot_to_check = row.get_slot_by_index(i)
-            if (slot_to_check.filled):
+            if slot_to_check.filled:
                 slot_right_or_slot_left_filled = True
                 score += 1
             else:
@@ -78,7 +78,7 @@ class TileWall():
         for i in range(row_index - 1, -1, -1):
             row_to_check = self.tile_wall[i]
             slot_to_check = row_to_check.get_slot_by_index(slot.index)
-            if (slot_to_check.filled):
+            if slot_to_check.filled:
                 slot_above_or_below_filled = True
                 score += 1
             else:
@@ -88,7 +88,7 @@ class TileWall():
         for i in range(row_index + 1, 5):
             row_to_check = self.tile_wall[i]
             slot_to_check = row_to_check.get_slot_by_index(slot.index)
-            if (slot_to_check.filled):
+            if slot_to_check.filled:
                 slot_above_or_below_filled = True
                 score += 1
             else:
