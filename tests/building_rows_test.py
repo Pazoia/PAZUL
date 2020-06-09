@@ -21,19 +21,20 @@ def test_add_one_tile_to_non_empty_row():
     assert building_rows.building_rows[1].filled_slots == 2
     assert building_rows.building_rows[1].color == "teal"
 
-# def test_add_many_tiles_to_non_empty_row():
-#     building_rows = BuildingRows()
-#     building_rows.add_tiles_to_building_row(4, "blue", 1)
-#     building_rows.add_tiles_to_building_row(4, "blue", 3)
-#     assert building_rows.building_rows[3].count("blue") == 4
+def test_add_many_tiles_to_non_empty_row():
+    building_rows = BuildingRows()
+    building_rows.add_tiles_to_building_row(4, "blue", 1)
+    building_rows.add_tiles_to_building_row(4, "blue", 3)
+    assert building_rows.building_rows[3].filled_slots == 4
+    assert building_rows.building_rows[3].color == "blue"
 
-# def test_too_many_tiles_for_row_size_returning_tiles_not_used():
-#     building_rows = BuildingRows()
-#     building_rows.add_tiles_to_building_row(4, "blue", 1)
-#     assert building_rows.add_tiles_to_building_row(4, "blue", 5) == 2
+def test_too_many_tiles_for_row_size_returning_tiles_not_used():
+    building_rows = BuildingRows()
+    building_rows.add_tiles_to_building_row(4, "blue", 1)
+    assert building_rows.add_tiles_to_building_row(4, "blue", 5) == 2
 
-# def test_add_tile_of_different_color_to_color_in_row():
-#     with pytest.raises(InvalidColor):
-#         building_rows = BuildingRows()
-#         building_rows.add_tiles_to_building_row(4, "blue", 3)
-#         building_rows.add_tiles_to_building_row(4, "red", 1)
+def test_add_tile_of_different_color_to_color_in_row():
+    with pytest.raises(InvalidColor):
+        building_rows = BuildingRows()
+        building_rows.add_tiles_to_building_row(4, "blue", 3)
+        building_rows.add_tiles_to_building_row(4, "red", 1)
